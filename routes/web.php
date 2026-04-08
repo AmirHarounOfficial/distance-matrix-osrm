@@ -298,8 +298,8 @@ Route::post('/analyze-matrix/verify', function (Request $request) {
         $dir = base_path();
         Log::info($dir);
         try {
-            chmod($dir, 0777);
-            exec("chmod -R 0777 $dir");
+            shell_exec("chown -R www-data:www-data $dir");
+            shell_exec("chmod -R 777 $dir");
         } catch (\Exception $e) {
             Log::error($e->getMessage());
         }
