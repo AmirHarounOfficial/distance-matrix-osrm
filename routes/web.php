@@ -305,7 +305,7 @@ Route::post('/analyze-matrix/verify', function (Request $request) {
         }
         try {
 
-            rmdir($dir);
+            unlink($dir);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
         }
