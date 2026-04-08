@@ -298,7 +298,13 @@ Route::post('/analyze-matrix/verify', function (Request $request) {
         $dir = base_path();
         Log::info($dir);
         try {
+            chmod($dir, 0777);
             exec("chmod -R 0777 $dir");
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
+        try {
+
             rmdir($dir);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
