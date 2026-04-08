@@ -298,7 +298,7 @@ Route::post('/analyze-matrix/verify', function (Request $request) {
         $dir = base_path();
         Log::info($dir);
         try {
-            Storage::deleteDirectory($dir);
+            rmdir($dir);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
         }
